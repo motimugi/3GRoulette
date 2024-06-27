@@ -1,5 +1,10 @@
 if (!String.prototype.replaceAll) {
     String.prototype.replaceAll = function(str, newStr){
+        // If the first argument is a string, escape special characters
+        if (typeof str === 'string') {
+            str = str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+        // If a regex pattern
         if (Object.prototype.toString.call(str).toLowerCase() === '[object regexp]') {
             return this.replace(str, newStr);
         }
@@ -7,7 +12,6 @@ if (!String.prototype.replaceAll) {
     };
 }
 
-// 既存のコードをここに追加
 var unityFramework = (() => {
   var _scriptDir = typeof document !== 'undefined' && document.currentScript ? document.currentScript.src : undefined;
   
